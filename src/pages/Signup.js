@@ -1,11 +1,15 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 
-function Signup() {
+function signup() {
     return (
         <div>
+            <Helmet>
+                <title>Dogeposting / Signup</title>
+            </Helmet>
             <h1>Signup</h1>
         </div>
     )
 }
 
-export default Signup
+export default signup
