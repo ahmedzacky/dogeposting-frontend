@@ -13,7 +13,11 @@ const Home = () => {
         const resScreams = await axios.get('/screams')
         setScreams(resScreams.data)
     }
-    useEffect(() => (fetchAllScreams()), [])
+    useEffect(() => {
+        (async() => {
+            await fetchAllScreams()
+        })()
+    }, [])
     let recentScreams = screams !== [] ?
     screams.map(scream => <Scream key={scream.screamID} scream={scream}/>)
     : <p>Loading...</p>

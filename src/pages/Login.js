@@ -4,6 +4,10 @@ import PropTypes from 'prop-types'
 import AppIcon from './images/dog.svg'
 import axios from 'axios'
 
+//usehistory
+import { useHistory } from "react-router-dom";
+
+
 //mui imports
 import withStyles from '@material-ui/core/styles/withStyles'
 import Grid from '@material-ui/core/Grid'
@@ -12,38 +16,19 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-const styles ={
-    form: {
-        textAlign: 'center'
-    },
-    image: {
-        maxWidth: 80,
-        margin: '20px auto'
-    },
-    pageTitle: {
-        fontSize: '30pt',
-        margin: '20px auto'
-    },
-    textField: {
-        margin: '20px auto'
-    },
-    genError: {
-        margin: '20px auto',
-        color: 'red',
-        fontSize: '0.8rem'
-    },
-    progress: {
-        position: 'absolute'
-    }
-}
+const styles = theme => ({
+    ...theme.spreadThis
+})
 
 //TODOOOOO SETT BIGG WARNING IF AUTH ERROR IS auth/user-not-found OR REDIRECT TO SIGNUPPAGE
 
-const Login = ({classes, history}) => {
+const Login = ({classes}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState({})
+
+    let history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -52,6 +37,7 @@ const Login = ({classes, history}) => {
         axios.post('https://europe-west1-dogeposting-cdbdd.cloudfunctions.net/api/login', userData)
         .then(res => {
             setLoading(false)
+            localStorage.setItem('DgIdToken', `Bearer ${res.data.token}`)
             history.push('/')
         })
         .catch(err =>{
@@ -60,6 +46,7 @@ const Login = ({classes, history}) => {
         })
 
     }
+
     const handleChange = (e) => {
         if (e.target.name === 'email'){
             setEmail(e.target.value)
@@ -67,6 +54,8 @@ const Login = ({classes, history}) => {
             setPassword(e.target.value)
         }
     }
+
+
     return (
         <Grid container className={classes.form}>
             <Helmet>
