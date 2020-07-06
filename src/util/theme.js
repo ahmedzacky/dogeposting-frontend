@@ -1,17 +1,18 @@
 export default {
 	palette: {
-	  primary: {
-		light: '#74b9ff',
-		main: '#ff7043',
-		dark: '#6c5ce7',
-		contrastText: '#fffde7'
-	  },
-	  secondary: {
-		light: '#fdcb6e',
-		main: '#e17055',
-		dark: '#d63031',
-		contrastText: '#dfe6e9'
-	  },
+		type: "dark",
+		primary: {
+			light: '#74b9ff',
+			main: '#ff7043',
+			dark: '#6c5ce7',
+			contrastText: '#fffde7'
+		},
+		secondary: {
+			light: '#fdcb6e',
+			main: '#e17055',
+			dark: '#d63031',
+			contrastText: '#fffde7'
+		},
 	},
 	spreadThis: {
 		typography: {
@@ -32,7 +33,7 @@ export default {
 			margin: '7px auto'
 		},
 		genError: {
-			margin: '20px auto',
+			margin: '10px auto',
 			color: 'red',
 			fontSize: '0.8rem'
 		},
@@ -40,7 +41,7 @@ export default {
 			position: 'absolute'
 		},
 		button : {
-			marginTop: 15
+			marginTop: 10
 		}
 	}	
 }

@@ -15,35 +15,45 @@ import themeFile from './util/theme'
 import jwtDecode from 'jwt-decode'
 import AuthRoute from './util/AuthRoute'
 
+//redux
+import {Provider} from 'react-redux'
+import store from './Redux/store'
+import {SET_AUTHENTICATED} from './Redux/types'
+import {logoutUser, getUserData} from './Redux/actions/userActions'
+import Axios from 'axios';
+
 const theme = createMuiTheme(themeFile)
 
 const token = localStorage.DgIdToken
-let authenticated
 if(token){
 	const decoded = jwtDecode(token)
 	if(decoded.exp * 1000 < Date.now()){
-		window.location.href = '/login'
-		authenticated = false
-	} authenticated = true
+		store.dispatch(logoutUser())	
+		window.location.href = '/login';
+	} else {
+		store.dispatch({type: SET_AUTHENTICATED});
+		Axios.defaults.headers.common['Authorization'] = token
+		store.dispatch(getUserData())
+	}
 }
-
-console.log(authenticated)
 
 const App = () => {
 	return (
 		<MuiThemeProvider theme={theme}>
-			<div className="App">
-			<Router>
-			<Navbar/>
-			<div className="container">
-			<Switch>
-				<Route exact path="/" component={Home}/>
-				<AuthRoute exact path="/login" component={Login} authenticated={authenticated}/>
-				<AuthRoute exact path="/signup" component={signup} authenticated={authenticated}/>
-			</Switch>
-			</div>
-			</Router>
-			</div>
+			<Provider store={store}>
+				<div className="App">
+					<Router>
+						<Navbar/>
+						<div className="container">
+							<Switch>
+								<Route exact path="/" component={Home}/>
+								<AuthRoute exact path="/login" component={Login} />
+								<AuthRoute exact path="/signup" component={signup} />
+							</Switch>
+						</div>
+					</Router>
+				</div>
+			</Provider>
 		</MuiThemeProvider>
 	);
 }

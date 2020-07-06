@@ -1,12 +1,13 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Helmet from 'react-helmet'
-import PropTypes from 'prop-types'
 import AppIcon from './images/dog.svg'
-import axios from 'axios'
 
 //usehistory
 import { useHistory } from "react-router-dom";
 
+//redux
+import {useSelector, useDispatch} from 'react-redux'
+import { loginUser } from '../Redux/actions/userActions';
 
 //mui imports
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -16,34 +17,35 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
+
 const styles = theme => ({
     ...theme.spreadThis
 })
 
-//TODOOOOO SETT BIGG WARNING IF AUTH ERROR IS auth/user-not-found OR REDIRECT TO SIGNUPPAGE
 
 const Login = ({classes}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState({})
 
     let history = useHistory();
 
+    const state = useSelector(state => ({
+        user: state.user,
+        ui: state.ui
+    }))
+
+    //setting local errors object on global errors change
+    useEffect(() => {
+        setErrors(state.ui.errors);
+    }, [state.ui.errors])
+
+    const dispatch = useDispatch()
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        setLoading(true);
         const userData = {email , password}
-        axios.post('https://europe-west1-dogeposting-cdbdd.cloudfunctions.net/api/login', userData)
-        .then(res => {
-            setLoading(false)
-            localStorage.setItem('DgIdToken', `Bearer ${res.data.token}`)
-            history.push('/')
-        })
-        .catch(err =>{
-            setLoading(false)
-            setErrors(err.response.data)
-        })
+        dispatch(loginUser(userData, history))
 
     }
 
@@ -55,7 +57,7 @@ const Login = ({classes}) => {
         }
     }
 
-
+    const {loading} = state.ui ;
     return (
         <Grid container className={classes.form}>
             <Helmet>
@@ -73,8 +75,8 @@ const Login = ({classes}) => {
                         name="email" 
                         type="email"
                         label="Email"
-                        helperText={errors.email}
-                        error={errors.email ? true : false}
+                        helperText={errors && errors.email}
+                        error={errors && errors.email ? true : false}
                         className={classes.textField}
                         value={email}
                         onChange={handleChange}
@@ -85,14 +87,14 @@ const Login = ({classes}) => {
                         name="password" 
                         type="password"
                         label="Password"
-                        helperText={errors.password}
-                        error={errors.password ? true : false}
+                        helperText={errors && errors.password}
+                        error={errors && errors.password ? true : false}
                         className={classes.textField}
                         value={password}
                         onChange={handleChange}
                         fullWidth
                     />
-                    {errors.general && (
+                    {errors && errors.general && (
                         <Typography variant="body2" className={classes.genError}>
                         {errors.general}
                         </Typography>
@@ -113,10 +115,6 @@ const Login = ({classes}) => {
             <Grid item sm/>
         </Grid>
     )
-}
-
-Login.propTypes = {
-    classes: PropTypes.object.isRequired
 }
 
 export default withStyles(styles)(Login)

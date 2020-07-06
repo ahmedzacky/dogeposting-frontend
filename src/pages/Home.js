@@ -2,13 +2,13 @@ import React, {useState, useEffect} from 'react'
 import Helmet from 'react-helmet'
 import axios from 'axios'
 
-import Scream from '../components/Scream'
-
 import Grid from '@material-ui/core/Grid'
 
+import Scream from '../components/Scream'
+import Profile from '../components/Profile'
 
 const Home = () => {
-    const [screams, setScreams] = useState([])
+    const [screams, setScreams] = useState()
     const fetchAllScreams = async () => {
         const resScreams = await axios.get('/screams')
         setScreams(resScreams.data)
@@ -18,7 +18,7 @@ const Home = () => {
             await fetchAllScreams()
         })()
     }, [])
-    let recentScreams = screams !== [] ?
+    let recentScreams = screams ?
     screams.map(scream => <Scream key={scream.screamID} scream={scream}/>)
     : <p>Loading...</p>
     return (
@@ -31,7 +31,7 @@ const Home = () => {
             {recentScreams}
             </Grid>
             <Grid item sm={4} xs={12}>
-                <p>profiloooo</p>
+                <Profile />
             </Grid>     
         </Grid>
     )
