@@ -74,8 +74,27 @@ export const getUserData = () => (dispatch) => {
         .catch(err => console.error(err))
 }
 
+
+export const uploadImage = (formData) => (dispatch) => {
+    dispatch({ type: LOADING_USER })
+    axios.post('/user/image', formData)
+    .then(() => {
+        dispatch(getUserData())
+    })
+    .catch(err => console.error(err))
+}
+
+export const editUserDetails = (userDetails) => (dispatch) => {
+    dispatch({type: LOADING_USER})
+    axios
+    .post('/user', userDetails)
+    .then(()=> dispatch(getUserData()))
+    .catch(err => console.error(err))
+}
+
 export const logoutUser = () => (dispatch) => {
     localStorage.removeItem('DgIdToken');
     delete axios.defaults.headers.common['Authorization']
     dispatch({type: SET_UNAUTHENTICATED})
 }
+
