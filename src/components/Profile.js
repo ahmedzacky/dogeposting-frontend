@@ -158,16 +158,17 @@ const Profile = ({classes}) => {
     ) : (
         <Paper className={classes.paper}>
             <Typography variant="body2" align="center">
-                No profile found, please login again
-                <div className={classes.buttons}>
-                    <Button variant="contained" color="primary" component={Link} to={'/login'}>
-                        Login
-                    </Button>
-                    <Button variant="contained" color="primary" component={Link} to={'/signup'}>
-                        Signup
-                    </Button>
-                </div>
+                You're not signed in
             </Typography>
+            <div className={classes.buttons}>
+                <Button variant="contained" color="primary" component={Link} to={'/login'}>
+                    Login
+                </Button>
+                <Button variant="contained" color="primary" component={Link} to={'/signup'}>
+                    Signup
+                </Button>
+            </div>
+           
         </Paper>
     )) : (<p>Loading...</p>)
     

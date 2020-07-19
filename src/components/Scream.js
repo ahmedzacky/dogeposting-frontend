@@ -16,11 +16,13 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 
 import { likeScream, unlikeScream } from '../Redux/actions/dataActions'
 import {useSelector, useDispatch} from 'react-redux'
+import DeleteScream from './DeleteScream';
 
 
 
 const styles = {
     card: {
+        position: 'relative',
         display: 'flex',
         marginBottom: 20
     },
@@ -37,8 +39,9 @@ const styles = {
 const Scream = ({scream, classes}) => {
     const {userImage, body, createdAt, userHandle, screamID, likeCount, commentCount} = scream
     const state = useSelector(state => ({user: state.user}))
-    const { user: {authenticated, likes} } = state
+    const { user: {authenticated, likes, credentials: {handle}} } = state
     const dispatch = useDispatch()
+
     const likedScream = () => {
         return likes && likes.find(like => like.screamID === screamID) ? true : false
     }
@@ -64,7 +67,9 @@ const Scream = ({scream, classes}) => {
         <MyButton tip="Like" onClick={toLikeScream}>
            <FavoriteBorder /> 
         </MyButton>
-    ))
+    ));
+
+    const deleteButton = authenticated && userHandle === handle ? (<DeleteScream screamID={screamID}/>) : (null) 
 
     dayjs.extend(relativeTime)
     return (
@@ -82,6 +87,7 @@ const Scream = ({scream, classes}) => {
                     to={`/users/${userHandle}`}>
                     {userHandle}
                 </Typography>
+                {deleteButton}
                 <Typography 
                     variant="body2" 
                     color="textSecondary">

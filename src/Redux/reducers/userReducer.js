@@ -42,9 +42,10 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 likes: [
-                    ...state.likes,
-                    {userHandle: state.credentials.handle, 
-                    screamID: action.payload.screamID}
+                    ...state.likes, {
+                    userHandle: state.credentials.handle, 
+                    screamID: action.payload.screamID
+                    }
                 ]
             }
         case UNLIKE_SCREAM:

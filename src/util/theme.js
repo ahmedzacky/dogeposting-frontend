@@ -1,5 +1,6 @@
 export default {
 	palette: {
+		type: 'dark',
 		primary: {
 			light: '#74b9ff',
 			main: '#ff7043',
@@ -11,7 +12,8 @@ export default {
 			main: '#e17055',
 			dark: '#d63031',
 			contrastText: '#fffde7'
-		},
+		}
+		
 	},
 	spreadThis: {
 		typography: {
@@ -26,7 +28,8 @@ export default {
 		},
 		pageTitle: {
 			fontSize: '30pt',
-			margin: '20px auto'
+			margin: '20px auto',
+			color: '#FFF'
 		},
 		textField: {
 			margin: '7px auto'
