@@ -19,7 +19,10 @@ import {useSelector, useDispatch} from 'react-redux'
 import {editUserDetails} from '../Redux/actions/userActions'
 
 const styles = (theme) => ({
-    ...theme.spreadThis
+    ...theme.spreadThis,
+    button: {
+        float: "right"
+    }
 })
 
 const EditDetails = ({ classes }) =>{
@@ -34,26 +37,26 @@ const EditDetails = ({ classes }) =>{
         credentials: state.user.credentials
     }))
 
+    const { credentials } = state
+
     const mapDetailstoState = (credentials) => {
         setBio(credentials.bio? credentials.bio: '')
         setWebsite(credentials.website? credentials.website: '')
         setLocation(credentials.location? credentials.location: '')
     }
 
+    //fetching previously loaded credentials from the store
     useEffect(() => {
-        const credentials = state.credentials;
         mapDetailstoState(credentials);
     }, [])
 
-    console.log(state.credentials)
+    
+    const handleOpen = () => {
+        setOpen(true)
+    }
 
     const handleClose = () => {
         setOpen(false)
-    }
-
-    const handleOpen = () => {
-        setOpen(true)
-        mapDetailstoState(state.credentials)
     }
 
     const handleChange = (e) => {
@@ -81,7 +84,7 @@ const EditDetails = ({ classes }) =>{
     return (
         <Fragment>
             <Tooltip title="Edit details" placement="top-end">
-                <IconButton onClick={handleOpen} className={classes.button}>
+                <IconButton onClick={handleOpen} className={classes.button} style={{right: 0, bottom: 0, position: "relative"}}>
                     <EditIcon color="primary"/>
                 </IconButton>
             </Tooltip>
@@ -130,8 +133,6 @@ const EditDetails = ({ classes }) =>{
                         onChange={handleChange}
                         fullWidth
                         />
-
-
                     </form>
                 </DialogContent>
                 <DialogActions>

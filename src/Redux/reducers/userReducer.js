@@ -5,7 +5,9 @@ import {
     LOADING_UI,
     SET_AUTHENTICATED,
     SET_UNAUTHENTICATED,
-    LOADING_USER
+    LOADING_USER,
+    LIKE_SCREAM,
+    UNLIKE_SCREAM,
 } from './../types'
 
 const initialState = {
@@ -35,6 +37,21 @@ export default function(state = initialState, action){
             return{
                 ...state,
                 loading: true
+            }
+        case LIKE_SCREAM:
+            return {
+                ...state,
+                likes: [
+                    ...state.likes,
+                    {userHandle: state.credentials.handle, 
+                    screamID: action.payload.screamID}
+                ]
+            }
+        case UNLIKE_SCREAM:
+            const newLikes = [...state.likes].filter(like => like.screamID !== action.payload.screamID)
+            return {
+                ...state,
+                likes: newLikes 
             }
         default:
             return state;

@@ -1,7 +1,6 @@
 import React, {Fragment} from 'react'
 import {Link} from 'react-router-dom'
 import dayjs from 'dayjs'
-
 //redux
 import {useSelector, useDispatch} from 'react-redux'
 import {uploadImage, logoutUser} from '../Redux/actions/userActions'
@@ -9,7 +8,6 @@ import {uploadImage, logoutUser} from '../Redux/actions/userActions'
 //mui imports
 import withStyles from '@material-ui/core/styles/withStyles'
 import Button from '@material-ui/core/Button'
-import { light } from '@material-ui/core/styles/createPalette'
 import Paper from '@material-ui/core/Paper'
 import MuiLink from '@material-ui/core/Link'
 import Typography from '@material-ui/core/Typography'
@@ -49,7 +47,7 @@ const styles = (theme) => ({
             height: 200,
             objectFit: 'cover',
             maxWidth: '100%',
-            borderRadius: 5
+            borderRadius: "50%"
             },
             '& .profile-details': {
                 textAlign: 'center',
@@ -93,6 +91,8 @@ const Profile = ({classes}) => {
     } = state.user
 
     const dispatch = useDispatch()
+
+    
     const handleImageChange = event => {
         const image = event.target.files[0]
         const formData = new FormData();
@@ -102,7 +102,7 @@ const Profile = ({classes}) => {
     }
 
     //very smart
-    const handleEditPictute = () => {
+    const handleEditPicture = () => {
         const fileInput = document.getElementById('imageInput')
         fileInput.click()
     }
@@ -118,11 +118,10 @@ const Profile = ({classes}) => {
                     <img className="profile-image" src={imageUrl} alt="profile"/>
                     <input type="file" hidden="hidden" id="imageInput" onChange={handleImageChange}/>
                     <Tooltip title="Edit bro pic" placement="top-end" className={classes.tooltip}>
-                        <IconButton onClick={handleEditPictute}>
+                        <IconButton onClick={handleEditPicture}>
                             <EditIcon color="primary"/>
                         </IconButton>
                     </Tooltip>
-                    
                 </div>
                 <hr/>
                 <div className="profile-details">
@@ -141,12 +140,12 @@ const Profile = ({classes}) => {
                     {website && (
                         <Fragment>
                             <LinkIcon color="primary"/>
-                            <a href={website} target="_blank" rel="noopener noreferrer">{`    ${website}`}</a>
+                            <a href={website} target="_blank" rel="noopener noreferrer"> {website}</a>
                             <hr/> 
                         </Fragment>
                     )}
                     <CalendarToday color="primary" />
-                    <span><span>  </span>Joined {dayjs(createdAt).format(`DD MMM YYYY`)}</span>
+                    <span> Joined {dayjs(createdAt).format(`DD MMM YYYY`)}</span>
                 </div>
                 <Tooltip title="Logout" placement="top-end">
                     <IconButton onClick={handleLogout}>

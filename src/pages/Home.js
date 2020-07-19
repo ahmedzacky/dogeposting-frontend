@@ -1,24 +1,29 @@
 import React, {useState, useEffect} from 'react'
 import Helmet from 'react-helmet'
 import axios from 'axios'
-
+import {useSelector, useDispatch} from 'react-redux'
+import {getScreams} from '.././Redux/actions/dataActions'
 import Grid from '@material-ui/core/Grid'
 
 import Scream from '../components/Scream'
 import Profile from '../components/Profile'
 
 const Home = () => {
-    const [screams, setScreams] = useState()
-    const fetchAllScreams = async () => {
-        const resScreams = await axios.get('/screams')
-        setScreams(resScreams.data)
-    }
+    // const [screams, setScreams] = useState()
+    // const fetchAllScreams = async () => {
+    //     const resScreams = await axios.get('/screams')
+    //     setScreams(resScreams.data)
+    // }
+
+    const state = useSelector(state => ({ data: state.data }))
+    const { screams, loading } = state.data
+
+    const dispatch = useDispatch()
+
     useEffect(() => {
-        (async() => {
-            await fetchAllScreams()
-        })()
+        dispatch(getScreams())
     }, [])
-    let recentScreams = screams ?
+    let recentScreams = !loading ?
     screams.map(scream => <Scream key={scream.screamID} scream={scream}/>)
     : <p>Loading...</p>
     return (
