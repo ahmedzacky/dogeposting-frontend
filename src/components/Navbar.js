@@ -13,6 +13,7 @@ import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import Notifications from '@material-ui/icons/Notifications';
 
+import PostScream from './PostScream'
 const Navbar = () => {
     const state = useSelector(state => ({
         authenticated: state.user.authenticated
@@ -23,9 +24,7 @@ const Navbar = () => {
             <Toolbar className="nav-container">
             {authenticated ? (
                 <Fragment>
-                    <MyButton tip="Screeaaam !">
-                        <AddIcon />
-                    </MyButton>
+                    <PostScream />
                     <Link to="/">
                         <MyButton tip="Home">
                             <HomeIcon />
