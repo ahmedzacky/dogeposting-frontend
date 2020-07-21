@@ -84,7 +84,7 @@ const EditDetails = ({ classes }) =>{
     return (
         <Fragment>
             <Tooltip title="Edit details" placement="top-end">
-                <IconButton onClick={handleOpen} className={classes.button} style={{right: 0, bottom: 0, position: "relative"}}>
+                <IconButton onClick={handleOpen} className={classes.button} >
                     <EditIcon color="primary"/>
                 </IconButton>
             </Tooltip>

@@ -8,15 +8,16 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogActions from '@material-ui/core/DialogActions'
 import DeleteOutline from '@material-ui/icons/DeleteOutline'
 
-import {deleteScream} from '../redux/actions/dataActions'
+import {deleteScream} from '../Redux/actions/dataActions'
 import {useDispatch} from 'react-redux'
 
 
 const styles = {
     deleteButton: {
         position: 'absolute',
-        top: '10%',
-        left: '90%',
+        top: 18,
+        right: 10,
+        color: 'red'
     }
 }
 
@@ -24,20 +25,21 @@ const styles = {
      const [open, setOpen] = useState(false)
      const dispatch = useDispatch()
 
-     const handleOpen = () => {setOpen(true)}
-     const handleClose = () => {setOpen(false)}
+     const handleOpen = () => setOpen(true)
+     const handleClose = () => setOpen(false)
+
      const toDeleteScream = () => {
          dispatch(deleteScream(screamID))
+         setOpen(false)
      }
-
         return (
             <Fragment>
                 <MyButton 
                     tip="Delete" 
-                    onClick={()=> handleOpen}
+                    onClick={handleOpen}
                     btnClassName={classes.deleteButton}
                 >
-                    <DeleteOutline color="red"/>
+                    <DeleteOutline/>
                 </MyButton>
                 <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
                     <DialogTitle>
@@ -45,7 +47,7 @@ const styles = {
                     </DialogTitle>
                     <DialogActions>
                         <Button onClick={handleClose} color="primary">Cancel</Button>
-                        <Button onClick={() => toDeleteScream} color="secondary">Winning</Button>
+                        <Button onClick={toDeleteScream} color="secondary">Winning</Button>
                     </DialogActions>
                 </Dialog>
             </Fragment>

@@ -1,4 +1,5 @@
 import React, {useState, useEffect, Fragment} from 'react'
+import MyButton from '.././util/MyButton'
 
 //mui
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -8,143 +9,131 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from "@material-ui/core/IconButton"
+import CircularProgress from "@material-ui/core/CircularProgress"
 
 //icon
-import EditIcon from "@material-ui/icons/Edit"
+import AddIcon from "@material-ui/icons/Add"
+import CloseIcon from "@material-ui/icons/Close"
 
 //redux
 import {useSelector, useDispatch} from 'react-redux'
-import {editUserDetails} from '../Redux/actions/userActions'
+import { postScream, clearErrors } from '../Redux/actions/dataActions'
 
 const styles = (theme) => ({
     ...theme.spreadThis,
-    button: {
-        float: "right"
+    submitButton: {
+        position: "relative",
+        float: "right",
+        marginTop: 10
+    },
+    progressSpinner: {
+        position: "absolute",
+        margin: 'auto'
+    },
+    closeButton :{
+        position: 'absolute',
+        left: '90%',
+        top: '6%'
     }
+    
 })
 
-const EditDetails = ({ classes }) =>{
-    const [bio, setBio] = useState('')
-    const [website, setWebsite] = useState('')
-    const [location, setLocation] = useState('')
+const PostScream = ({ classes }) =>{
     const [open, setOpen] = useState(false)
+    const [submitting, setSubmitting] = useState(false)
+    const [body, setBody] = useState('')
+    const [errors, setErrors] = useState({})
 
+    const state = useSelector(state => ({ui : state.ui}))
+    const { ui } = state
+    const { loading } = ui 
     const dispatch = useDispatch()
 
-    const state = useSelector(state => ({
-        credentials: state.user.credentials
-    }))
-
-    const { credentials } = state
-
-    const mapDetailstoState = (credentials) => {
-        setBio(credentials.bio? credentials.bio: '')
-        setWebsite(credentials.website? credentials.website: '')
-        setLocation(credentials.location? credentials.location: '')
-    }
-
-    //fetching previously loaded credentials from the store
-    useEffect(() => {
-        mapDetailstoState(credentials);
-    }, [])
-
-    
     const handleOpen = () => {
         setOpen(true)
     }
-
     const handleClose = () => {
+        dispatch(clearErrors())
         setOpen(false)
+        setErrors({})
     }
 
     const handleChange = (e) => {
-        switch(e.target.name){
-            case 'bio' :
-                setBio(e.target.value)
-                break;
-            case 'website' : 
-                setWebsite(e.target.value)
-                break;
-            case 'location' : 
-                setLocation(e.target.value)
-                break;
-            default : 
-                break;    
-        }
+        setBody(e.target.value)
     }
 
-    const handleSubmit = () => {
-        const userDetails  = { bio, website, location}
-        dispatch(editUserDetails(userDetails))
-        handleClose()
+    //dispatch an object to be posted : {body : body}
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setSubmitting(true)
+        dispatch(postScream({body}))
+        setSubmitting(false)
     }
+
+    useEffect(()=> {
+        if(ui.errors){
+            setErrors(ui.errors)
+        }
+        if(!ui.errors && !loading){
+            setBody('')
+            setOpen(false)
+            setErrors({})
+        }
+    }, [ui.errors, loading])
 
     return (
-        <Fragment>
-            <Tooltip title="Edit details" placement="top-end">
-                <IconButton onClick={handleOpen} className={classes.button} style={{right: 0, bottom: 0, position: "relative"}}>
-                    <EditIcon color="primary"/>
-                </IconButton>
-            </Tooltip>
-            <Dialog 
-            open={open}
-            onClose={handleClose}
-            fullWidth
-            maxWidth="sm"
-            >
-                <DialogTitle>Edit your details</DialogTitle>
+        <>
+            <MyButton onClick={handleOpen} tip="Screamm!!">
+                <AddIcon />
+            </MyButton>
+            <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+                <MyButton 
+                    tip="Close" 
+                    onClick={handleClose} 
+                    tipClassName={classes.closeButton}
+                >
+                    <CloseIcon />
+                </MyButton>
+                <DialogTitle>SCREEAAAMMMM!!!</DialogTitle>
                 <DialogContent>
-                    <form>
+                    <form method="POST" onSubmit={handleSubmit}>
                         <TextField
-                        name="bio"
-                        type="text"
-                        label="Bio"
-                        multiline
-                        rows="3"
-                        placeholder="A short bio about your benis 😁"
-                        className={classes.textField}
-                        value={bio}
-                        onChange={handleChange}
-                        fullWidth
+                            name="body"
+                            type="text"
+                            label="SCREAAM!!"
+                            multiline
+                            rows="3"
+                            placeholder="SCREEAAAMMMM!!!"
+                            error={errors && errors.body ? true : false}
+                            disabled={submitting}
+                            helperText={errors && errors.body}
+                            className={classes.textField}
+                            onChange={handleChange}
+                            fullWidth
                         />
-                        <TextField
-                        name="website"
-                        type="text"
-                        label="Website"
-                        multiline
-                        rows="3"
-                        placeholder="A short website about your benis 😁"
-                        className={classes.textField}
-                        value={website}
-                        onChange={handleChange}
-                        fullWidth
-                        />
-                        <TextField
-                        name="location"
-                        type="text"
-                        label="Location"
-                        multiline
-                        rows="3"
-                        placeholder="A short location about your benis 😁"
-                        className={classes.textField}
-                        value={location}
-                        onChange={handleChange}
-                        fullWidth
-                        />
+
+                            
+                            {loading ? 
+                                <CircularProgress 
+                                className={`${classes.submitButton} ${classes.progressSpinner}`} 
+                                size="small"
+                                /> :
+                                <Button 
+                                    type="submit" 
+                                    variant="contained" 
+                                    color="primary" 
+                                    className={classes.submitButton}
+                                    disabled={loading}
+                                > 
+                                Submit
+                                </Button>
+                            }                        
+                        
                     </form>
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleSubmit} color="primary">
-                        Save
-                    </Button>
-                </DialogActions>
             </Dialog>
-        </Fragment>
+        </>
     )
 }
 
-export default withStyles(styles)(EditDetails);
+export default withStyles(styles)(PostScream);

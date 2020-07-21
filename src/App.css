@@ -17,9 +17,15 @@ a{
 }
 
 .nav-container{
+  display: inline-block;
+  width: 55%;
   margin: auto;
 }
 
 .nav-container svg{
   color: #fff;
+}
+
+.scream-stats{
+  padding-top: 20px;
 }

@@ -1,29 +1,41 @@
 import React, { Fragment } from 'react'
 import {Link} from 'react-router-dom'
 import {useSelector} from 'react-redux'
-import MyButton from '../util/MyButton';
-
 
 //MUI stuff
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles'
 
-import AddIcon from '@material-ui/icons/Add';
+
+
 import HomeIcon from '@material-ui/icons/Home';
 import Notifications from '@material-ui/icons/Notifications';
 
+import MyButton from '../util/MyButton';
 import PostScream from './PostScream'
-const Navbar = () => {
+
+const styles = {
+    title: {
+        flexGrow: 1
+    }
+}
+
+const Navbar = ({ classes }) => {
     const state = useSelector(state => ({
         authenticated: state.user.authenticated
     }))
     const { authenticated } = state
     return (
         <AppBar>
-            <Toolbar className="nav-container">
+            <Toolbar>
+                <Typography variant="h6" className={classes.title}>
+                    Dogeposting
+                </Typography>
             {authenticated ? (
-                <Fragment>
+                <div className="nav-container">
                     <PostScream />
                     <Link to="/">
                         <MyButton tip="Home">
@@ -33,18 +45,18 @@ const Navbar = () => {
                     <MyButton tip="Notifications">
                         <Notifications />
                     </MyButton>
-                </Fragment>
+                </div>
             ) 
             : (
-                <Fragment>
+                <div className="nav-container"> 
                     <Button color="inherit" component={Link}  to="/login">Login</Button>
                     <Button color="inherit" component={Link}  to="/">Home</Button>
                     <Button color="inherit" component={Link}  to="/signup">Signup</Button> 
-                </Fragment>
+                </div>
             )}
             </Toolbar>
         </AppBar>
     )
 }
 
-export default Navbar
+export default withStyles(styles)(Navbar);

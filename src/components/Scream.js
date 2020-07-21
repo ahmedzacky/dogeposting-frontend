@@ -28,11 +28,21 @@ const styles = {
     },
     image: {
         minWidth: 200,
+        maxHeight: 200,
+        borderRadius: 5
 
     },
     content: {
-        padding: 25,
-        objectFit: 'cover'
+        padding: '15px 15px 0 15px',
+        paddingBottom: 0,
+        objectFit: 'cover',
+        '&:last-child': {
+            paddingBottom: 0
+        }
+    },
+    likeButton: {
+        padding: 0,
+        marginRight: 7
     }
 }
 
@@ -53,18 +63,18 @@ const Scream = ({scream, classes}) => {
     }
 
     const likeButton = !authenticated ? (
-        <MyButton tip="Like">
+        <MyButton tip="Like" btnClassName={classes.likeButton}>
             <Link to="/login">
                <FavoriteBorder /> 
             </Link>
         </MyButton>
     ) : (likedScream()? (
-        <MyButton tip="unlike" onClick={toUnlikeScream}>
+        <MyButton tip="unlike" onClick={toUnlikeScream} btnClassName={classes.likeButton}>
            <FavoriteIcon color="primary"/> 
 
         </MyButton>
     ) : (
-        <MyButton tip="Like" onClick={toLikeScream}>
+        <MyButton tip="Like" onClick={toLikeScream} btnClassName={classes.likeButton}>
            <FavoriteBorder /> 
         </MyButton>
     ));
@@ -97,12 +107,14 @@ const Scream = ({scream, classes}) => {
                     variant="body1">
                     {body}
                 </Typography>
+                <div className="scream-stats">
                 {likeButton}
-                <span> {likeCount} Likes</span>
+                {likeCount > 0 && <span>{likeCount}</span>}
                 <MyButton tip="comment">
                     <ChatIcon color="primary"/>
                 </MyButton>
-                <span> {commentCount} Comments</span>
+                {commentCount > 0 && <span>{commentCount}</span>}
+                </div>
             </CardContent>
         </Card>
     )
