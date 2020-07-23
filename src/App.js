@@ -8,7 +8,8 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 //pages
 import Home from './pages/home' 
 import Login from './pages/login' 
-import signup from './pages/signup' 
+import Signup from './pages/signup' 
+import User from './pages/user' 
 
 //util
 import themeFile from './util/theme'
@@ -48,7 +49,8 @@ const App = () => {
 							<Switch>
 								<Route exact path="/" component={Home}/>
 								<AuthRoute exact path="/login" component={Login} />
-								<AuthRoute exact path="/signup" component={signup} />
+								<AuthRoute exact path="/signup" component={Signup} />
+								<Route exact path="/doges/:handle" component={User} />
 							</Switch>
 						</div>
 					</Router>

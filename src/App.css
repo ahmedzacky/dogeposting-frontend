@@ -30,6 +30,12 @@ a{
   margin-left: -12px;
 }
 
+.stats{
+  color: #ccc;
+  margin-left: -6px;
+  font-size: 12px;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -45,3 +51,4 @@ a{
   background: #FF7043; 
   border-radius: 15px;
 }
+

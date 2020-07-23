@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import MyButton from '../../util/MyButton'
 import dayjs from 'dayjs'
 import { Link } from 'react-router-dom'
 
@@ -23,6 +22,8 @@ import { getScream } from '../../Redux/actions/dataActions'
 //components
 import LikeButton from './LikeButton'
 import Comments from './Comments'
+import CommentForm from './CommentForm'
+import MyButton from '../../util/MyButton'
 
 
 const ScreamDialog = ({screamID, userHandle, classes}) =>{
@@ -72,20 +73,21 @@ const ScreamDialog = ({screamID, userHandle, classes}) =>{
                 <Typography variant="body1">{body}</Typography>
                 <div className="screamStats">
                 <LikeButton screamID={screamID} />
-                {likeCount > 0 && <span>{likeCount}</span>}
+                {likeCount > 0 && <span className="stats">{likeCount}</span>}
                 <MyButton tip="Comment">
                     <ChatIcon color="primary"/>
                 </MyButton>
-                {commentCount > 0 && <span>{commentCount}</span>}
+                {commentCount > 0 && <span className="stats">{commentCount}</span>}
                 </div>
             </Grid>
             <hr className={classes.visibleSeperator} />
+            <CommentForm screamID={screamID} />
             <Comments comments={comments} />
         </Grid>
     )
     return (
         <>
-            <MyButton onClick={handleOpen} tip="expand scream" tipClassName={classes.expandbutton}>
+            <MyButton onClick={handleOpen} tip="View Details" tipClassName={classes.expandbutton}>
                 <UnfoldMore color="primary" />
             </MyButton>
             <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">

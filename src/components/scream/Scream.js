@@ -40,7 +40,7 @@ const Scream = ({scream, classes}) => {
                     color="primary" 
                     variant="h5" 
                     component={Link} 
-                    to={`/users/${userHandle}`}>
+                    to={`/doges/${userHandle}`}>
                     {userHandle}
                 </Typography>
                 {deleteButton}
@@ -55,11 +55,11 @@ const Scream = ({scream, classes}) => {
                 </Typography>
                 <div className="screamStats">
                 <LikeButton screamID={screamID} />
-                {likeCount > 0 && <span>{likeCount}</span>}
+                {likeCount > 0 && <span className="stats">{likeCount}</span>}
                 <MyButton tip="Comment">
                     <ChatIcon color="primary"/>
                 </MyButton>
-                {commentCount > 0 && <span>{commentCount}</span>}
+                {commentCount > 0 && <span className="stats">{commentCount}</span>}
                 <ScreamDialog screamID={screamID} userHandle={userHandle} />
                 </div>
               

@@ -1,9 +1,8 @@
 import React, {useState, useEffect} from 'react'
-import MyButton from '.././util/MyButton'
+import MyButton from '../../util/MyButton'
 
 //mui
 import withStyles from '@material-ui/core/styles/withStyles'
-import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -17,7 +16,7 @@ import CloseIcon from "@material-ui/icons/Close"
 
 //redux
 import {useSelector, useDispatch} from 'react-redux'
-import { postScream, clearErrors } from '../Redux/actions/dataActions'
+import { postScream, clearErrors } from '../../Redux/actions/dataActions'
 
 const PostScream = ({ classes }) =>{
     const [open, setOpen] = useState(false)

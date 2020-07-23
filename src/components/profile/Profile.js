@@ -16,14 +16,14 @@ import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip';
 
 //icons
-import EditIcon from '@material-ui/icons/Edit'
+import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary'
 import LocationOn from '@material-ui/icons/LocationOn'
 import LinkIcon from '@material-ui/icons/Link'
 import CalendarToday from '@material-ui/icons/CalendarToday'
 import ExitToApp from '@material-ui/icons/ExitToApp'
 
 //components
-import EditDetails from '../EditDetails'
+import EditDetails from './EditDetails'
 
 
 const Profile = ({classes}) => {
@@ -66,9 +66,9 @@ const Profile = ({classes}) => {
                 <div className="image-wrapper">
                     <img className="profile-image" src={imageUrl} alt="profile"/>
                     <input type="file" hidden="hidden" id="imageInput" onChange={handleImageChange}/>
-                    <Tooltip title="Edit bro pic" placement="top-end" className={classes.tooltip}>
+                    <Tooltip title="Edit Profile pic" placement="top-end" className={classes.tooltip}>
                         <IconButton onClick={handleEditPicture}>
-                            <EditIcon color="primary"/>
+                            <PhotoLibraryIcon color="primary"/>
                         </IconButton>
                     </Tooltip>
                 </div>

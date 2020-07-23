@@ -41,5 +41,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://europe-west1-dogeposting-cdbdd.cloudfunctions.net/api"
+  "proxy": "https://europe-west3-dogeposting-cdbdd.cloudfunctions.net/api"
 }

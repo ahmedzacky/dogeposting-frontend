@@ -19,7 +19,7 @@ const setAuthHeader = token => {
 export const loginUser = (userData, history) => (dispatch) => {
     dispatch({type: LOADING_UI});
     axios
-        .post('https://europe-west1-dogeposting-cdbdd.cloudfunctions.net/api/login', userData)
+        .post('/login', userData)
         .then(res => {
             setAuthHeader(res.data.token)
             dispatch(getUserData());
@@ -42,7 +42,7 @@ export const loginUser = (userData, history) => (dispatch) => {
 export const signupUser = (newuserData, history) => (dispatch) => {
     dispatch({type: LOADING_UI});
     axios
-        .post('https://europe-west1-dogeposting-cdbdd.cloudfunctions.net/api/signup', newuserData)
+        .post('/signup', newuserData)
         .then(res => {
             setAuthHeader(res.data.token)
             dispatch(getUserData());

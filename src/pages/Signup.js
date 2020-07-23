@@ -36,7 +36,8 @@ const Signup = ({classes}) => {
         user: state.user,
         ui: state.ui
     }))
-
+ 
+    const {loading} = state.ui;
     //setting local errors object on global errors change
     useEffect(() => {
         setErrors(state.ui.errors);
@@ -70,7 +71,6 @@ const Signup = ({classes}) => {
         }
     }
 
-    const {loading} = state.ui;
     return (
         <Grid container className={classes.form}>
             <Helmet>

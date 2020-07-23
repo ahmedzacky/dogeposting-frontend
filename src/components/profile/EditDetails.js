@@ -16,7 +16,7 @@ import EditIcon from "@material-ui/icons/Edit"
 
 //redux
 import {useSelector, useDispatch} from 'react-redux'
-import {editUserDetails} from '../Redux/actions/userActions'
+import {editUserDetails} from '../../Redux/actions/userActions'
 
 
 const EditDetails = ({ classes }) =>{

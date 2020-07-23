@@ -20,11 +20,11 @@ const Comments = ({comments, classes}) => {
                                 <Grid item>
                                     <div className={classes.commentData}>
                                         <Typography
-                                            variant="h5"
+                                            variant="h6"
                                             component={Link}
                                             to={`users/${userHandle}`}
                                             color="primary">@{userHandle}</Typography>
-                                        <Typography variant="body 2" color="textSecondary">
+                                        <Typography variant="body2" color="textSecondary">
                                             {dayjs(createdAt).format('h:mm a, MMMM DD YYYY')}
                                         </Typography>
                                         <hr className={classes.invisibleSeperator} />
@@ -42,7 +42,7 @@ const Comments = ({comments, classes}) => {
 }
 
 const styles = theme=> ({
-    ...theme.spreadthis,
+    ...theme.spreadThis,
     commentImage: {
         maxWidth: '100%',
         height: 75,
