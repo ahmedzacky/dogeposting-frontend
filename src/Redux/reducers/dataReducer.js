@@ -1,5 +1,6 @@
 import {
     SET_SCREAMS,
+    SET_SCREAM,
     LIKE_SCREAM,
     UNLIKE_SCREAM,
     LOADING_DATA,
@@ -32,10 +33,18 @@ export default function(state = initialState, action){
                 screams: action.payload,
                 loading: false
             }
+        case SET_SCREAM:
+            return {
+                ...state,
+                scream: action.payload
+            }
         case LIKE_SCREAM:
         case UNLIKE_SCREAM:
             index = screamsCopy.findIndex((scream) => scream.screamID === action.payload.screamID)
             screamsCopy[index] = action.payload
+            if(state.scream.screamID === action.payload.screamID){
+                state.scream = action.payload
+            }
             return {
                 ...state,
                 screams: screamsCopy

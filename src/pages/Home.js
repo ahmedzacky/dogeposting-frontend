@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react'
 import Helmet from 'react-helmet'
-import {useSelector, useDispatch} from 'react-redux'
-import {getScreams} from '.././Redux/actions/dataActions'
+import { useSelector, useDispatch } from 'react-redux'
+import { getScreams } from '.././Redux/actions/dataActions'
 import Grid from '@material-ui/core/Grid'
 
-import Scream from '../components/Scream'
-import Profile from '../components/Profile'
+import Scream from '../components/scream/Scream'
+import Profile from '../components/profile/Profile'
 
 const Home = () => {
     const state = useSelector(state => ({ data: state.data }))
@@ -13,9 +13,7 @@ const Home = () => {
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(getScreams())
-    }, [])
+    useEffect(() => dispatch(getScreams()), [])
 
     let recentScreams = !loading ?
     (screams.map(scream => <Scream key={scream.screamID} scream={scream}/>))

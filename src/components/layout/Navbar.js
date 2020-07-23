@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react'
-import {Link} from 'react-router-dom'
-import {useSelector} from 'react-redux'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 //MUI stuff
 import AppBar from '@material-ui/core/AppBar'
@@ -9,19 +9,14 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles'
 
-
-
+//icons
 import HomeIcon from '@material-ui/icons/Home';
 import Notifications from '@material-ui/icons/Notifications';
 
-import MyButton from '../util/MyButton';
-import PostScream from './PostScream'
+//components
+import MyButton from '../../util/MyButton';
+import PostScream from '../scream/PostScream'
 
-const styles = {
-    title: {
-        flexGrow: 1
-    }
-}
 
 const Navbar = ({ classes }) => {
     const state = useSelector(state => ({
@@ -58,5 +53,12 @@ const Navbar = ({ classes }) => {
         </AppBar>
     )
 }
+
+const styles = {
+    title: {
+        flexGrow: 1
+    }
+}
+
 
 export default withStyles(styles)(Navbar);

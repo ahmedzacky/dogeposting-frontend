@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Fragment} from 'react'
+import React, {useState, useEffect} from 'react'
 import MyButton from '.././util/MyButton'
 
 //mui
@@ -18,25 +18,6 @@ import CloseIcon from "@material-ui/icons/Close"
 //redux
 import {useSelector, useDispatch} from 'react-redux'
 import { postScream, clearErrors } from '../Redux/actions/dataActions'
-
-const styles = (theme) => ({
-    ...theme.spreadThis,
-    submitButton: {
-        position: "relative",
-        float: "right",
-        marginTop: 10
-    },
-    progressSpinner: {
-        position: "absolute",
-        margin: 'auto'
-    },
-    closeButton :{
-        position: 'absolute',
-        left: '90%',
-        top: '6%'
-    }
-    
-})
 
 const PostScream = ({ classes }) =>{
     const [open, setOpen] = useState(false)
@@ -111,23 +92,22 @@ const PostScream = ({ classes }) =>{
                             onChange={handleChange}
                             fullWidth
                         />
-
-                            
-                            {loading ? 
-                                <CircularProgress 
-                                className={`${classes.submitButton} ${classes.progressSpinner}`} 
-                                size="small"
-                                /> :
-                                <Button 
-                                    type="submit" 
-                                    variant="contained" 
-                                    color="primary" 
-                                    className={classes.submitButton}
-                                    disabled={loading}
-                                > 
+                            <Button 
+                                type="submit" 
+                                variant="contained" 
+                                color="primary" 
+                                className={classes.submitButton}
+                                disabled={loading}
+                            > 
                                 Submit
-                                </Button>
-                            }                        
+
+                            {loading &&
+                                <CircularProgress 
+                                className={classes.progressSpinner} 
+                                /> 
+                                
+                            }
+                            </Button>                        
                         
                     </form>
                 </DialogContent>
@@ -135,5 +115,23 @@ const PostScream = ({ classes }) =>{
         </>
     )
 }
+
+const styles = (theme) => ({
+    ...theme.spreadThis,
+    submitButton: {
+        position: "relative",
+        float: "right",
+        marginTop: 10
+    },
+    progressSpinner: {
+        margin: 'auto'
+    },
+    closeButton :{
+        position: 'absolute',
+        left: '90%',
+        top: '6%'
+    }
+    
+})
 
 export default withStyles(styles)(PostScream);

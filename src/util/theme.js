@@ -44,6 +44,15 @@ export default {
 		},
 		button : {
 			marginTop: 10
+		},
+		invisibleSeperator: {
+			border: 'none',
+			margin: 3
+		},
+		visibleSeperator: {
+			width: '100%',
+			boderBottom: '1px solid rgba(0,0,0,0.1)',
+			marginBottom: 15
 		}
 	}	
 }

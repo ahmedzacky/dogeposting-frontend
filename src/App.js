@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
-import Navbar from './components/Navbar'
+import Navbar from './components/layout/Navbar'
 import './App.css';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles'
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
@@ -18,7 +18,7 @@ import AuthRoute from './util/AuthRoute'
 //redux
 import {Provider} from 'react-redux'
 import store from './Redux/store'
-import {SET_AUTHENTICATED} from './Redux/types'
+import { SET_AUTHENTICATED } from './Redux/types'
 import {logoutUser, getUserData} from './Redux/actions/userActions'
 import Axios from 'axios';
 
@@ -31,7 +31,7 @@ if(token){
 		store.dispatch(logoutUser())	
 		window.location.href = '/login';
 	} else {
-		store.dispatch({type: SET_AUTHENTICATED});
+		store.dispatch({ type: SET_AUTHENTICATED });
 		Axios.defaults.headers.common['Authorization'] = token
 		store.dispatch(getUserData())
 	}

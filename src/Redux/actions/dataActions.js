@@ -1,5 +1,6 @@
 import {
-    SET_SCREAMS, 
+    SET_SCREAMS,
+    SET_SCREAM, 
     LOADING_DATA, 
     LIKE_SCREAM, 
     UNLIKE_SCREAM,
@@ -7,14 +8,15 @@ import {
     LOADING_UI,
     POST_SCREAM,
     SET_ERRORS,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    STOP_LOADING_UI
 } from '../types'
 import axios from 'axios'
 
 
 export const getScreams = () => dispatch => {
     dispatch({type: LOADING_DATA})
-    axios.get('https://europe-west1-dogeposting-cdbdd.cloudfunctions.net/api/screams')
+    axios.get('/screams')
         .then(res => {
             dispatch({
                 type: SET_SCREAMS,
@@ -27,6 +29,20 @@ export const getScreams = () => dispatch => {
                 payload: []
             })
         })
+}
+
+
+export const getScream = (screamID) => dispatch => {
+    dispatch({type: LOADING_UI})
+    axios.get(`/scream/${screamID}`)
+    .then(res => {
+        dispatch({ 
+            type: SET_SCREAM,
+            payload: res.data 
+        })
+        dispatch({type: STOP_LOADING_UI })
+    })
+    .catch(err => console.error(err))
 }
 
 export const postScream = (newScream) => dispatch => {

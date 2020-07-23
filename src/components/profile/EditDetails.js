@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Fragment} from 'react'
+import React, {useState, useEffect} from 'react'
 
 //mui
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -18,12 +18,6 @@ import EditIcon from "@material-ui/icons/Edit"
 import {useSelector, useDispatch} from 'react-redux'
 import {editUserDetails} from '../Redux/actions/userActions'
 
-const styles = (theme) => ({
-    ...theme.spreadThis,
-    button: {
-        float: "right"
-    }
-})
 
 const EditDetails = ({ classes }) =>{
     const [bio, setBio] = useState('')
@@ -76,62 +70,62 @@ const EditDetails = ({ classes }) =>{
     }
 
     const handleSubmit = () => {
-        const userDetails  = { bio, website, location}
+        const userDetails  = { bio, website, location } 
         dispatch(editUserDetails(userDetails))
         handleClose()
     }
 
     return (
-        <Fragment>
+        <>
             <Tooltip title="Edit details" placement="top-end">
                 <IconButton onClick={handleOpen} className={classes.button} >
                     <EditIcon color="primary"/>
                 </IconButton>
             </Tooltip>
             <Dialog 
-            open={open}
-            onClose={handleClose}
-            fullWidth
-            maxWidth="sm"
+                open={open}
+                onClose={handleClose}
+                fullWidth
+                maxWidth="sm"
             >
                 <DialogTitle>Edit your details</DialogTitle>
                 <DialogContent>
                     <form>
                         <TextField
-                        name="bio"
-                        type="text"
-                        label="Bio"
-                        multiline
-                        rows="3"
-                        placeholder="A short bio about your benis 😁"
-                        className={classes.textField}
-                        value={bio}
-                        onChange={handleChange}
-                        fullWidth
+                            name="bio"
+                            type="text"
+                            label="Bio"
+                            multiline
+                            rows="3"
+                            placeholder="A short bio about your benis 😁"
+                            className={classes.textField}
+                            value={bio}
+                            onChange={handleChange}
+                            fullWidth
                         />
                         <TextField
-                        name="website"
-                        type="text"
-                        label="Website"
-                        multiline
-                        rows="3"
-                        placeholder="A short website about your benis 😁"
-                        className={classes.textField}
-                        value={website}
-                        onChange={handleChange}
-                        fullWidth
+                            name="website"
+                            type="text"
+                            label="Website"
+                            multiline
+                            rows="3"
+                            placeholder="A short website about your benis 😁"
+                            className={classes.textField}
+                            value={website}
+                            onChange={handleChange}
+                            fullWidth
                         />
                         <TextField
-                        name="location"
-                        type="text"
-                        label="Location"
-                        multiline
-                        rows="3"
-                        placeholder="A short location about your benis 😁"
-                        className={classes.textField}
-                        value={location}
-                        onChange={handleChange}
-                        fullWidth
+                            name="location"
+                            type="text"
+                            label="Location"
+                            multiline
+                            rows="3"
+                            placeholder="A short location about your benis 😁"
+                            className={classes.textField}
+                            value={location}
+                            onChange={handleChange}
+                            fullWidth
                         />
                     </form>
                 </DialogContent>
@@ -144,8 +138,15 @@ const EditDetails = ({ classes }) =>{
                     </Button>
                 </DialogActions>
             </Dialog>
-        </Fragment>
+        </>
     )
 }
+
+const styles = (theme) => ({
+    ...theme.spreadThis,
+    button: {
+        float: "right"
+    }
+})
 
 export default withStyles(styles)(EditDetails);

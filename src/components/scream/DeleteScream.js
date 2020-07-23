@@ -1,5 +1,5 @@
-import React, {Fragment, useState} from 'react'
-import MyButton from '.././util/MyButton'
+import React, { useState } from 'react'
+import MyButton from '../../util/MyButton'
 
 import withStyles from '@material-ui/core/styles/withStyles'
 import Button from '@material-ui/core/Button'
@@ -8,20 +8,10 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogActions from '@material-ui/core/DialogActions'
 import DeleteOutline from '@material-ui/icons/DeleteOutline'
 
-import {deleteScream} from '../Redux/actions/dataActions'
-import {useDispatch} from 'react-redux'
+import { deleteScream } from '../../Redux/actions/dataActions'
+import { useDispatch } from 'react-redux'
 
-
-const styles = {
-    deleteButton: {
-        position: 'absolute',
-        top: 18,
-        right: 10,
-        color: 'red'
-    }
-}
-
- const DeleteScream =({screamID, classes}) => {
+const DeleteScream =({screamID, classes}) => {
      const [open, setOpen] = useState(false)
      const dispatch = useDispatch()
 
@@ -33,7 +23,7 @@ const styles = {
          setOpen(false)
      }
         return (
-            <Fragment>
+            <>
                 <MyButton 
                     tip="Delete" 
                     onClick={handleOpen}
@@ -50,8 +40,18 @@ const styles = {
                         <Button onClick={toDeleteScream} color="secondary">Winning</Button>
                     </DialogActions>
                 </Dialog>
-            </Fragment>
+            </>
         )
 }
+
+const styles = {
+    deleteButton: {
+        position: 'absolute',
+        top: 12,
+        right: 10,
+        color: '#F81229'
+    }
+}
+
 
 export default withStyles(styles)(DeleteScream)
