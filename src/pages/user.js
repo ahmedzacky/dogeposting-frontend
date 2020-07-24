@@ -10,16 +10,19 @@ import StaticProfile from '../components/profile/StaticProfile'
 
 const User = () => {
     const [profile, setProfile] = useState({})
+    const [screamParam, setScreamParam] = useState(null)
 
-    const { data:{ screams, loading } } = useSelector(state => ({
-        data: state.data
-    }));
+    const { data:{ screams, loading } } = useSelector(state => ({ data: state.data }));
 
     const dispatch = useDispatch();
     const match = useRouteMatch();
+
     const handle = match.params.handle
+    const screamID = match.params.screamID
+
 
     useEffect(()=> {
+        screamID && setScreamParam(screamID)
         dispatch(getUserData(handle))
         axios.get(`/user/${handle}`).then(res=> setProfile(res.data.user))
     },[])
@@ -28,7 +31,15 @@ const User = () => {
         <p>Loading data...</p>
     ) : screams === null ? (
         <p>No screams from this user</p>
-    ) : screams.map(scream => <Scream key={scream.screamID} scream={scream}/>)
+    ) : !screamParam ? (
+        screams.map(scream => <Scream key={scream.screamID} scream={scream}/> )
+    ) : (
+        screams.map(scream => {
+            if (scream.screamID !== screamParam) {
+                return (<Scream key={scream.screamID} scream={scream} openDialog={false}/> )
+            } else return (<Scream key={scream.screamID} scream={scream} openDialog={true}/> )
+        })
+    )
 
     return (
         <Grid container spacing={4}>
@@ -39,7 +50,7 @@ const User = () => {
             {screamsMarkup}
         </Grid>
         <Grid item sm={4} xs={12}>
-            {profile === null ? <p>Loading...</p> : <StaticProfile profile={profile} />}
+            {Object.keys(profile).length === 0 ? <p>Loading...</p> : <StaticProfile profile={profile} />}
         </Grid>     
     </Grid>
     )

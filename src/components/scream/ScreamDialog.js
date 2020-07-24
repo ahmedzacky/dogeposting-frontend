@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import dayjs from 'dayjs'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useHistory } from 'react-router-dom'
 
 //mui
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -16,8 +16,8 @@ import UnfoldMore from "@material-ui/icons/UnfoldMore"
 import ChatIcon from '@material-ui/icons/Chat'
 
 //redux
-import {useSelector, useDispatch} from 'react-redux'
-import { getScream } from '../../Redux/actions/dataActions'
+import { useSelector, useDispatch } from 'react-redux'
+import { getScream, clearErrors } from '../../Redux/actions/dataActions'
 
 //components
 import LikeButton from './LikeButton'
@@ -25,9 +25,11 @@ import Comments from './Comments'
 import CommentForm from './CommentForm'
 import MyButton from '../../util/MyButton'
 
-
-const ScreamDialog = ({screamID, userHandle, classes}) =>{
+//whenever scream dialog is opened, browser will navigate to the scream ID based url
+//when the component is closed, the browser will return to the original path saved in the local state
+const ScreamDialog = ({screamID, userHandle, classes, openDialog}) =>{
     const [open, setOpen] = useState(false)
+    const [state, setState] = useState({oldPath: '', newPath: ''})
 
     const { 
         scream: { body, createdAt, likeCount,commentCount, userImage, comments }, 
@@ -40,10 +42,21 @@ const ScreamDialog = ({screamID, userHandle, classes}) =>{
     const dispatch = useDispatch()
 
     const handleOpen = () => {
+        const oldPath = window.location.pathname
+        const newPath = `/doges/${userHandle}/scream/${screamID}`
+        window.history.pushState(null, null, newPath)
         setOpen(true)
+        setState({ oldPath, newPath })
         dispatch(getScream(screamID))
     }
+
+    useEffect(() => {
+        openDialog && handleOpen()
+    }, [])
+
     const handleClose = () => {
+        window.history.pushState(null, null, state.oldPath)
+        dispatch(clearErrors())
         setOpen(false)
     }
 

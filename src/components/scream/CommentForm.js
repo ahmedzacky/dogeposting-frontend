@@ -51,6 +51,7 @@ const CommentForm = ({screamID, classes}) =>{
                         fullWidth
                         className={classes.textField}
                         autoComplete="off"
+                        variant="outlined"
 
                     />
                     <Button

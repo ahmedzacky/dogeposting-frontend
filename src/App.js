@@ -51,6 +51,7 @@ const App = () => {
 								<AuthRoute exact path="/login" component={Login} />
 								<AuthRoute exact path="/signup" component={Signup} />
 								<Route exact path="/doges/:handle" component={User} />
+								<Route exact path="/doges/:handle/scream/:screamID" component={User} />
 							</Switch>
 						</div>
 					</Router>

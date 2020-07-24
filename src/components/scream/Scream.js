@@ -20,7 +20,7 @@ import ChatIcon from '@material-ui/icons/Chat'
 import { useSelector } from 'react-redux'
 import DeleteScream from './DeleteScream';
 
-const Scream = ({scream, classes}) => {
+const Scream = ({scream, classes, openDialog}) => {
     const {userImage, body, createdAt, userHandle, screamID, likeCount, commentCount} = scream
     const state = useSelector(state => ({user: state.user}))
     const { user: {authenticated, credentials: {handle}} } = state
@@ -60,7 +60,7 @@ const Scream = ({scream, classes}) => {
                     <ChatIcon color="primary"/>
                 </MyButton>
                 {commentCount > 0 && <span className="stats">{commentCount}</span>}
-                <ScreamDialog screamID={screamID} userHandle={userHandle} />
+                <ScreamDialog screamID={screamID} userHandle={userHandle} openDialog={openDialog}/>
                 </div>
               
             </CardContent>

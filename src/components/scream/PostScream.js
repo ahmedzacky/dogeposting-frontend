@@ -24,8 +24,7 @@ const PostScream = ({ classes }) =>{
     const [body, setBody] = useState('')
     const [errors, setErrors] = useState({})
 
-    const state = useSelector(state => ({ui : state.ui}))
-    const { ui } = state
+    const { ui } = useSelector(state => ({ui : state.ui}))
     const { loading } = ui 
     const dispatch = useDispatch()
 
@@ -83,12 +82,12 @@ const PostScream = ({ classes }) =>{
                             label="SCREAAM!!"
                             multiline
                             rows="3"
-                            placeholder="SCREEAAAMMMM!!!"
                             error={errors && errors.body ? true : false}
                             disabled={submitting}
                             helperText={errors && errors.body}
                             className={classes.textField}
                             onChange={handleChange}
+                            variant="outlined"
                             fullWidth
                         />
                             <Button 
