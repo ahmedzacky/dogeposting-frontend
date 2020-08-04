@@ -6,8 +6,6 @@ import { useSelector } from 'react-redux'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles'
 
 //icons
 import HomeIcon from '@material-ui/icons/Home';
@@ -26,9 +24,6 @@ const Navbar = ({ classes }) => {
     return (
         <AppBar>
             <Toolbar>
-                <Typography variant="h6" className={classes.title}>
-                    Dogeposting
-                </Typography>
             {authenticated ? (
                 <div className="nav-container">
                     <PostScream />
@@ -52,11 +47,5 @@ const Navbar = ({ classes }) => {
     )
 }
 
-const styles = {
-    title: {
-        flexGrow: 1
-    }
-}
 
-
-export default withStyles(styles)(Navbar);
+export default (Navbar);
