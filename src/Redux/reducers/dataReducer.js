@@ -66,9 +66,21 @@ export default function(state = initialState, action){
         case SUBMIT_COMMENT:
             const newScream = {...state.scream}
             newScream.comments = [action.payload, ...newScream.comments]
+            index = screamsCopy.findIndex(scream => action.screamID === scream.screamID)
+            let newScreamCommentedOn = {
+                ...screamsCopy[index],
+                commentCount: screamsCopy[index].commentCount + 1
+            }
+            newScreams = [
+                ...screamsCopy.slice(0 , index),
+                newScreamCommentedOn,
+                ...screamsCopy.slice(index + 1)
+            ]
+
             return {
                 ...state,
-                scream: newScream
+                scream: newScream,
+                screams: newScreams
             }
     }
 }

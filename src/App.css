@@ -4,7 +4,7 @@ body {
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #121212;
+  background-color: #0F1A26;
 }
 
 a{
@@ -52,3 +52,17 @@ a{
   border-radius: 15px;
 }
 
+
+.profile-image{
+  width: 100%;
+  height: 100px;
+}
+
+.profile-details{
+  text-align: center;
+  margin-top: 10px;
+}
+
+.profile-details > div{
+  margin: 10px 0;
+}

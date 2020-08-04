@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import withStyles from '@material-ui/core/styles/withStyles'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
-import { Link } from 'react-router-dom'
 import dayjs from 'dayjs'
 
 const Comments = ({comments, classes}) => {
@@ -14,16 +14,16 @@ const Comments = ({comments, classes}) => {
                     <Fragment key={createdAt}>
                         <Grid item sm={12}>
                             <Grid container>
-                                <Grid item sm={2}>
+                                <Grid item>
                                     <img src={userImage} alt="Comment" className={classes.commentImage}/>
                                 </Grid>
-                                <Grid item>
+                                <Grid item sm={10}>
                                     <div className={classes.commentData}>
                                         <Typography
-                                            variant="h6"
                                             component={Link}
-                                            to={`users/${userHandle}`}
-                                            color="primary">@{userHandle}</Typography>
+                                            to={`/doges/${userHandle}`}
+                                            variant="h6"
+                                            color="primary">{userHandle}</Typography>
                                         <Typography variant="body2" color="textSecondary">
                                             {dayjs(createdAt).format('h:mm a, MMMM DD YYYY')}
                                         </Typography>
@@ -44,10 +44,10 @@ const Comments = ({comments, classes}) => {
 const styles = theme=> ({
     ...theme.spreadThis,
     commentImage: {
-        maxWidth: '100%',
-        height: 75,
+        maxWidth: 50,
+        height: 50,
         objectFit: 'cover',
-        borderRaduis: '50%'
+        borderRadius: '50%'
     },
     commentData: {
         marginLeft: 20

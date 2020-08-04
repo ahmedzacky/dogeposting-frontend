@@ -11,11 +11,11 @@ import withStyles from '@material-ui/core/styles/withStyles'
 
 //icons
 import HomeIcon from '@material-ui/icons/Home';
-import Notifications from '@material-ui/icons/Notifications';
 
 //components
 import MyButton from '../../util/MyButton';
 import PostScream from '../scream/PostScream'
+import Notifications from './Notifications';
 
 
 const Navbar = ({ classes }) => {
@@ -37,9 +37,7 @@ const Navbar = ({ classes }) => {
                             <HomeIcon />
                         </MyButton>
                     </Link>
-                    <MyButton tip="Notifications">
-                        <Notifications />
-                    </MyButton>
+                    <Notifications />
                 </div>
             ) 
             : (

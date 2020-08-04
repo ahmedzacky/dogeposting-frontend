@@ -7,6 +7,8 @@ import Grid from '@material-ui/core/Grid'
 import Scream from '../components/scream/Scream'
 import Profile from '../components/profile/Profile'
 
+import ScreamSkeleton from './../util/ScreamSkeleton'
+
 const Home = () => {
     const state = useSelector(state => ({ data: state.data }))
     const { screams, loading } = state.data
@@ -17,7 +19,7 @@ const Home = () => {
 
     let recentScreams = !loading ?
     (screams.map(scream => <Scream key={scream.screamID} scream={scream}/>))
-    : (<p>Loading...</p>)
+    : (<ScreamSkeleton />)
 
     return (
         <Grid container spacing={4}>

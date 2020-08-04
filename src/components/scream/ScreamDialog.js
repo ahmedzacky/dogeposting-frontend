@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import dayjs from 'dayjs'
-import { Link, useLocation, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import Helmet from 'react-helmet' 
 
 //mui
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -27,12 +28,12 @@ import MyButton from '../../util/MyButton'
 
 //whenever scream dialog is opened, browser will navigate to the scream ID based url
 //when the component is closed, the browser will return to the original path saved in the local state
-const ScreamDialog = ({screamID, userHandle, classes, openDialog}) =>{
+const ScreamDialog = ({screamID, userHandle, classes, commentCount, openDialog}) =>{
     const [open, setOpen] = useState(false)
     const [state, setState] = useState({oldPath: '', newPath: ''})
 
     const { 
-        scream: { body, createdAt, likeCount,commentCount, userImage, comments }, 
+        scream: { body, createdAt, likeCount, userImage, comments }, 
         ui : { loading } 
     } = useSelector(state => ({
         scream: state.data.scream,
@@ -42,8 +43,9 @@ const ScreamDialog = ({screamID, userHandle, classes, openDialog}) =>{
     const dispatch = useDispatch()
 
     const handleOpen = () => {
-        const oldPath = window.location.pathname
+        let oldPath = window.location.pathname
         const newPath = `/doges/${userHandle}/scream/${screamID}`
+        if(oldPath === newPath) oldPath = `/doges/${userHandle}`
         window.history.pushState(null, null, newPath)
         setOpen(true)
         setState({ oldPath, newPath })
@@ -62,13 +64,19 @@ const ScreamDialog = ({screamID, userHandle, classes, openDialog}) =>{
 
     const dialogMarkup = loading ? (
         <div className={classes.spinner}>
+            <Helmet>
+                <title>Dogeposting / {userHandle}</title>
+            </Helmet>
             <CircularProgress size={50} thickness={2}/>
             <p className={classes.loadingText}>Loading...</p>
         </div>
         
     ) : (
         <Grid container spacing={2}>
-            <Grid item sm={2}>
+            <Helmet>
+                <title>Dogeposting / {userHandle}</title>
+            </Helmet>
+            <Grid item >
                 <img src={userImage} alt="Profile" className={classes.profileImage}/>
             </Grid>
             <Grid item sm={10}>
@@ -76,7 +84,7 @@ const ScreamDialog = ({screamID, userHandle, classes, openDialog}) =>{
                     component={Link}
                     color="primary"
                     variant="h5"
-                    to={`/users/${userHandle}`}
+                    to={`/doges/${userHandle}`}
                 >@{userHandle}</Typography>
                 <hr className={classes.invisibleSeperator}/>
                 <Typography variant="body2" color="textSecondary">
@@ -93,13 +101,16 @@ const ScreamDialog = ({screamID, userHandle, classes, openDialog}) =>{
                 {commentCount > 0 && <span className="stats">{commentCount}</span>}
                 </div>
             </Grid>
-            <hr className={classes.visibleSeperator} />
             <CommentForm screamID={screamID} />
             <Comments comments={comments} />
         </Grid>
     )
     return (
         <>
+            <MyButton onClick={handleOpen} tip="Comment" >
+                <ChatIcon color="primary" />
+            </MyButton>
+            {commentCount > 0 && <span className="stats">{commentCount}</span>}
             <MyButton onClick={handleOpen} tip="View Details" tipClassName={classes.expandbutton}>
                 <UnfoldMore color="primary" />
             </MyButton>
@@ -124,7 +135,7 @@ const styles = (theme) =>({
     ...theme.spreadThis,
     profileImage: {
         maxWidth: 75,
-        height: 75,
+        maxHeight: 75,
         borderRadius: '50%',
         objectFit: 'cover'
     },
@@ -134,7 +145,8 @@ const styles = (theme) =>({
     },
     closeButton: {
         position: 'absolute',
-        left: '90%'
+        right: 15,
+        top: 15
     },
     expandbutton: {
         position: 'absolute',

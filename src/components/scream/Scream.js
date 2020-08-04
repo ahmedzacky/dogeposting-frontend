@@ -4,7 +4,6 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 
 //components
-import MyButton from '../../util/MyButton'
 import ScreamDialog from './ScreamDialog'
 import LikeButton from './LikeButton'
 
@@ -14,7 +13,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography'
-import ChatIcon from '@material-ui/icons/Chat'
 
 //redux
 import { useSelector } from 'react-redux'
@@ -40,27 +38,24 @@ const Scream = ({scream, classes, openDialog}) => {
                     color="primary" 
                     variant="h5" 
                     component={Link} 
-                    to={`/doges/${userHandle}`}>
+                    to={`/doges/${userHandle}`}
+                >
                     {userHandle}
                 </Typography>
                 {deleteButton}
                 <Typography 
                     variant="body2" 
-                    color="textSecondary">
+                    color="textSecondary"
+                >
                     {dayjs(createdAt).fromNow()}
                 </Typography>
-                <Typography 
-                    variant="body1">
+                <Typography variant="body1">
                     {body}
                 </Typography>
                 <div className="screamStats">
                 <LikeButton screamID={screamID} />
                 {likeCount > 0 && <span className="stats">{likeCount}</span>}
-                <MyButton tip="Comment">
-                    <ChatIcon color="primary"/>
-                </MyButton>
-                {commentCount > 0 && <span className="stats">{commentCount}</span>}
-                <ScreamDialog screamID={screamID} userHandle={userHandle} openDialog={openDialog}/>
+                <ScreamDialog screamID={screamID} userHandle={userHandle} openDialog={openDialog} commentCount={commentCount}/>
                 </div>
               
             </CardContent>
@@ -75,9 +70,11 @@ const styles = {
         marginBottom: 20
     },
     image: {
-        minWidth: 200,
-        maxHeight: 200,
-        borderRadius: 5
+        minWidth: '60px',
+        maxHeight: '60px',
+        borderRadius: '50%',
+        marginLeft: '5px',
+        marginTop: '15px'
 
     },
     content: {

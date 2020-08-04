@@ -1,4 +1,4 @@
-import {createStore, applyMiddleware, combineReducers, compose} from 'redux'
+import {createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import thunk from 'redux-thunk'
 
 import userReducer from './reducers/userReducer'
@@ -13,7 +13,22 @@ const reducers = combineReducers({
     ui: uiReducer
 })
 
-const store = createStore(reducers, initialState,  compose(applyMiddleware(thunk),  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()))
+const middleware = [thunk];
+
+
+const composeEnhancers =
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+    : compose;
+
+
+const enhancer = composeEnhancers(applyMiddleware(...middleware));
+
+
+
+window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const store = createStore(reducers, initialState, enhancer);
+
 
 
 export default store

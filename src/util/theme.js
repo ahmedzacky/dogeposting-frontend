@@ -3,7 +3,7 @@ export default {
 		type: 'dark',
 		primary: {
 			light: '#74b9ff',
-			main: '#ff7043',
+			main: '#FFA73C',
 			dark: '#6c5ce7',
 			contrastText: '#fffde7'
 		},
@@ -51,7 +51,7 @@ export default {
 		},
 		visibleSeperator: {
 			width: '100%',
-			boderBottom: '1px solid rgba(0,0,0,0.1)',
+			borderBottom: '1px solid rgba(0,0,0,0.1)',
 			marginBottom: 15
 		}
 	}	

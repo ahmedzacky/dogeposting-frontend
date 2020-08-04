@@ -25,6 +25,8 @@ import Axios from 'axios';
 
 const theme = createMuiTheme(themeFile)
 
+Axios.defaults.baseURL = 'https://europe-west3-dogeposting-cdbdd.cloudfunctions.net/api'
+
 const token = localStorage.DgIdToken
 if(token){
 	const decoded = jwtDecode(token)

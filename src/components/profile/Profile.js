@@ -16,7 +16,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip';
 
 //icons
-import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary'
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto'
 import LocationOn from '@material-ui/icons/LocationOn'
 import LinkIcon from '@material-ui/icons/Link'
 import CalendarToday from '@material-ui/icons/CalendarToday'
@@ -24,6 +24,7 @@ import ExitToApp from '@material-ui/icons/ExitToApp'
 
 //components
 import EditDetails from './EditDetails'
+import ProfileSkeleton from '../../util/ProfileSkeleton'
 
 
 const Profile = ({classes}) => {
@@ -68,7 +69,7 @@ const Profile = ({classes}) => {
                     <input type="file" hidden="hidden" id="imageInput" onChange={handleImageChange}/>
                     <Tooltip title="Edit Profile pic" placement="top-end" className={classes.tooltip}>
                         <IconButton onClick={handleEditPicture}>
-                            <PhotoLibraryIcon color="primary"/>
+                            <AddAPhotoIcon color="primary"/>
                         </IconButton>
                     </Tooltip>
                 </div>
@@ -119,7 +120,7 @@ const Profile = ({classes}) => {
             </div>
            
         </Paper>
-    )) : (<p>Loading...</p>)
+    )) : (<ProfileSkeleton />)
     
     return (
         <div>

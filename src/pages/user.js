@@ -6,7 +6,11 @@ import Grid from '@material-ui/core/Grid'
 import { useRouteMatch } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import { getUserData } from '../Redux/actions/dataActions'
+
+//components used
 import StaticProfile from '../components/profile/StaticProfile'
+import ScreamSkeleton from './../util/ScreamSkeleton'
+import ProfileSkeleton from './../util/ProfileSkeleton'
 
 const User = () => {
     const [profile, setProfile] = useState({})
@@ -27,17 +31,20 @@ const User = () => {
         axios.get(`/user/${handle}`).then(res=> setProfile(res.data.user))
     },[])
 
+    //if loading display loading, else if loading and no screams display no screams
+    //else if not loading and screams and we have a screamParam, we drill the opendialog to the sceeam dialog component display open dialog scream
+    //else we just map the screams
     const screamsMarkup = loading ? (
-        <p>Loading data...</p>
+        <ScreamSkeleton />
     ) : screams === null ? (
         <p>No screams from this user</p>
     ) : !screamParam ? (
         screams.map(scream => <Scream key={scream.screamID} scream={scream}/> )
     ) : (
         screams.map(scream => {
-            if (scream.screamID !== screamParam) {
-                return (<Scream key={scream.screamID} scream={scream} openDialog={false}/> )
-            } else return (<Scream key={scream.screamID} scream={scream} openDialog={true}/> )
+            if (scream.screamID === screamParam) {
+                return (<Scream key={scream.screamID} scream={scream} openDialog/> )
+            } else return (<Scream key={scream.screamID} scream={scream} /> )
         })
     )
 
@@ -50,7 +57,7 @@ const User = () => {
             {screamsMarkup}
         </Grid>
         <Grid item sm={4} xs={12}>
-            {Object.keys(profile).length === 0 ? <p>Loading...</p> : <StaticProfile profile={profile} />}
+            {Object.keys(profile).length === 0 ? <ProfileSkeleton /> : <StaticProfile profile={profile} />}
         </Grid>     
     </Grid>
     )

@@ -95,15 +95,16 @@ export const submitComment = (screamID, commentData) => dispatch => {
     .then(res =>{ 
         dispatch({
         type: SUBMIT_COMMENT,
-        payload: res.data
+        payload: res.data,
+        screamID: screamID
         })
         dispatch(clearErrors())
     })
-    .catch(err=> {
-        dispatch({
-            type: SET_ERRORS,
-            payload: err.response.data
-        })
+    .catch(err=> { console.log(err)
+        // dispatch({
+        //     type: SET_ERRORS,
+        //     payload: err.response.data
+        // })
     })
 }
     

@@ -1,20 +1,19 @@
+import axios from 'axios'
 import {
     SET_USER,
     SET_ERRORS,
     CLEAR_ERRORS,
     LOADING_UI,
     SET_UNAUTHENTICATED,
-    LOADING_USER
+    LOADING_USER,
+    MARK_NOTIFICATIONS_READ
 } from './../types'
-
-import axios from 'axios'
 
 const setAuthHeader = token => {
     const IDToken = `Bearer ${token}`
     localStorage.setItem('DgIdToken', IDToken)
     axios.defaults.headers.common['Authorization'] = IDToken
 }
-
 
 export const loginUser = (userData, history) => (dispatch) => {
     dispatch({type: LOADING_UI});
@@ -74,6 +73,11 @@ export const getUserData = () => (dispatch) => {
         .catch(err => console.error(err))
 }
 
+export const markNotificationsRead = (notificationID) => (dispatch) => {
+    axios.post('/notifications', notificationID)
+    .then(dispatch({type: MARK_NOTIFICATIONS_READ}))
+    .catch(err => console.error(err))
+}
 
 export const uploadImage = (formData) => (dispatch) => {
     dispatch({ type: LOADING_USER })
